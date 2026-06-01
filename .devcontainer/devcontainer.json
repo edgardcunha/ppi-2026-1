@@ -1,0 +1,11 @@
+{
+  "name": "ppi-2026-1",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "wallabyjs.quokka-vscode"
+      ]
+    }
+  }
+}
