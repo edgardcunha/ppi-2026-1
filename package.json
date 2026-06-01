@@ -1,0 +1,27 @@
+{
+  "name": "ppi-2026-1",
+  "version": "1.0.0",
+  "description": "Repositório base para a disciplina **PPI - Programação para Internet (2026/1)** do curso **Sistemas de Informação  - Multivix Cachoeiro**.",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "npm run build && node build/index.js",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edgardcunha/ppi-2026-1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/edgardcunha/ppi-2026-1/issues"
+  },
+  "homepage": "https://github.com/edgardcunha/ppi-2026-1#readme",
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}
