@@ -23,5 +23,6 @@
   "homepage": "https://github.com/edgardcunha/ppi-2026-1#readme",
   "devDependencies": {
     "typescript": "^6.0.3"
-  }
+  },
+  "types": "./build/index.d.ts"
 }
