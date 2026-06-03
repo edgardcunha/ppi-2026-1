@@ -98,6 +98,8 @@ Como não temos acesso de administrador global na máquina local, instalamos o c
 npm install typescript --save-dev
 ```
 
+> **Nota (2026/1):** Este projeto utiliza o **TypeScript 6** (`^6.0.3`), a versão mais recente do compilador, com suporte completo ao **ECMAScript 2025 (ESNext)**.
+
 ### 3. Inicializar o "Cérebro" do Compilador (`tsconfig.json`)
 
 Como o TypeScript está instalado localmente na pasta do projeto, usamos o prefixo `npx` para executar o binário interno:
@@ -112,13 +114,15 @@ Abra o seu arquivo `package.json` criado no passo 1 e configure a propriedade `"
 
 ```json
 "scripts": {
+  "start": "npm run build && node build/index.js",
   "build": "tsc",
-  "watch": "tsc -w"
+  "watch": "tsc --watch"
 }
 ```
 
-- `npm run build`: Varre seu projeto, valida os tipos estáticos e gera os arquivos `.js` equivalentes de uma só vez.
-- `npm run watch`: Cria um observador em tempo real. Cada vez que você salvar um arquivo `.ts`, o compilador gera a saída `.js` na velocidade da luz, pronta para ser interpretada pelo navegador.
+- `npm run build`: Varre o projeto, valida os tipos estáticos e gera os arquivos `.js` na pasta `build/` de uma só vez.
+- `npm run watch`: Cria um observador em tempo real — recompila automaticamente a cada arquivo `.ts` salvo.
+- `npm start`: Atalho completo que executa `build` e, em seguida, roda `node build/index.js`.
 
 ## 📝 Exemplo Didático para Testes (`index.ts`)
 
@@ -145,4 +149,40 @@ console.log(`Média do aluno de SI: ${mediaEstudante}`);
 */
 // const erroProposital = calcularMediaSI(7.0, "10.0");
 ```
+
+## 📁 Estrutura do Projeto
+
+Após executar `npm run build`, a estrutura do repositório fica assim:
+
+```text
+ppi-2026-1/
+├── index.ts           ← código-fonte TypeScript
+├── package.json       ← metadados e scripts do projeto
+├── tsconfig.json      ← configuração do compilador TypeScript
+└── build/             ← artefatos gerados pelo compilador (não editar manualmente)
+    ├── index.js       ← JavaScript compilado (CommonJS)
+    ├── index.js.map   ← source map para depuração no editor
+    ├── index.d.ts     ← declarações de tipos exportados
+    └── index.d.ts.map ← source map das declarações
+```
+
+## ⚙️ Configuração Avançada do `tsconfig.json`
+
+O `tsconfig.json` deste projeto vai além das opções padrão geradas por `npx tsc --init`, incorporando boas práticas recomendadas para projetos TypeScript 6 modernos:
+
+| Opção | Valor | Finalidade |
+|---|---|---|
+| `outDir` | `./build` | Pasta de destino dos arquivos compilados |
+| `target` | `esnext` | Gera JavaScript moderno (ES2025+) |
+| `module` | `nodenext` | Resolução de módulos compatível com Node.js (ESM/CJS) |
+| `strict` | `true` | Ativa todas as verificações estritas de tipo |
+| `declaration` | `true` | Gera arquivos `.d.ts` de declaração de tipos |
+| `sourceMap` | `true` | Gera `.map` para depuração no editor |
+| `verbatimModuleSyntax` | `true` | Exige `import type` para importações apenas de tipo |
+| `isolatedModules` | `true` | Compatível com transpiladores rápidos (esbuild, SWC) |
+| `noUncheckedIndexedAccess` | `true` | Acesso a arrays/objetos retorna `T \| undefined` |
+| `exactOptionalPropertyTypes` | `true` | Propriedades opcionais não aceitam `undefined` explícito |
+| `noUncheckedSideEffectImports` | `true` | Valida imports de efeito colateral *(novidade do TS 5.6+)* |
+| `moduleDetection` | `force` | Trata todos os arquivos como módulos ES |
+| `skipLibCheck` | `true` | Ignora erros em `.d.ts` de bibliotecas externas |
 

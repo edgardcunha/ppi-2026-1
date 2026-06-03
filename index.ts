@@ -16,4 +16,4 @@ console.log(`Média do aluno de SI: ${mediaEstudante}`);
   Se você tentar descomentar a linha abaixo, o TypeScript (ou o Quokka.js inline) 
   impedirá a compilação imediatamente acusando o erro em tempo de desenvolvimento!
 */
-const erroProposital = calcularMediaSI(7.0, 10.0);
+// const erroProposital = calcularMediaSI(7.0, "10.0");
